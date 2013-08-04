@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class Login extends JFrame {
@@ -24,6 +26,11 @@ public class Login extends JFrame {
 	private JLabel lblPortDesc;
 
 	public Login() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		setResizable(false);
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +91,7 @@ public class Login extends JFrame {
 
 	private void login(String name, String address, int port) {
 		dispose();
-		System.out.println(name + ", " + address + ", " + port);
+		new Client(name, address, port);
 	}
 
 	public static void main(String[] args) {
