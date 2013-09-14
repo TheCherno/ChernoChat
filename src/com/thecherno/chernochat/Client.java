@@ -20,6 +20,7 @@ public class Client extends JFrame {
 	private String name, address;
 	private int port;
 	private JTextField txtMessage;
+	private JTextArea txtrHistory;
 
 	public Client(String name, String address, int port) {
 		setTitle("Cherno Chat Client");
@@ -27,8 +28,9 @@ public class Client extends JFrame {
 		this.address = address;
 		this.port = port;
 		createWindow();
+		console("Attempting a connection to " + address + ":" + port + ", user: " + name);
 	}
-	
+
 	private void createWindow() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -41,15 +43,15 @@ public class Client extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{28, 815, 30, 7}; // SUM = 880
-		gbl_contentPane.rowHeights = new int[]{35, 475, 40}; // SUM = 550
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0};
-		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 28, 815, 30, 7 }; // SUM = 880
+		gbl_contentPane.rowHeights = new int[] { 35, 475, 40 }; // SUM = 550
+		gbl_contentPane.columnWeights = new double[] { 1.0, 1.0 };
+		gbl_contentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
-		JTextArea txtrHistory = new JTextArea();
+
+		txtrHistory = new JTextArea();
 		txtrHistory.setEditable(false);
 		GridBagConstraints gbc_txtrHistory = new GridBagConstraints();
 		gbc_txtrHistory.insets = new Insets(0, 0, 5, 5);
@@ -59,7 +61,7 @@ public class Client extends JFrame {
 		gbc_txtrHistory.gridwidth = 2;
 		gbc_txtrHistory.insets = new Insets(0, 5, 0, 0);
 		contentPane.add(txtrHistory, gbc_txtrHistory);
-		
+
 		txtMessage = new JTextField();
 		GridBagConstraints gbc_txtMessage = new GridBagConstraints();
 		gbc_txtMessage.insets = new Insets(0, 0, 0, 5);
@@ -68,15 +70,21 @@ public class Client extends JFrame {
 		gbc_txtMessage.gridy = 2;
 		contentPane.add(txtMessage, gbc_txtMessage);
 		txtMessage.setColumns(10);
-		
+
 		JButton btnSend = new JButton("Send");
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
 		gbc_btnSend.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSend.gridx = 2;
 		gbc_btnSend.gridy = 2;
 		contentPane.add(btnSend, gbc_btnSend);
-		
+
 		setVisible(true);
+
+		txtMessage.requestFocusInWindow();
+	}
+
+	public void console(String message) {
+		txtrHistory.append(message + "\n\r");
 	}
 
 }
