@@ -38,6 +38,8 @@ public class Client extends JFrame {
 	private DatagramSocket socket;
 	private InetAddress ip;
 
+	private Thread send;
+
 	public Client(String name, String address, int port) {
 		setTitle("Cherno Chat Client");
 		this.name = name;
@@ -76,6 +78,20 @@ public class Client extends JFrame {
 		}
 		String message = new String(packet.getData());
 		return message;
+	}
+
+	private void send(final byte[] data) {
+		send = new Thread("Send") {
+			public void run() {
+				DatagramPacket packet = new DatagramPacket(data, data.length, ip, port);
+				try {
+					socket.send(packet);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		send.start();
 	}
 
 	private void createWindow() {
