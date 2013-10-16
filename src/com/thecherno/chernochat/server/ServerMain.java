@@ -18,7 +18,6 @@ public class ServerMain {
 		}
 		port = Integer.parseInt(args[0]);
 		new ServerMain(port);
-
 	}
 
 }
