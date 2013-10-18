@@ -27,18 +27,17 @@ import javax.swing.text.DefaultCaret;
 public class Client extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private JPanel contentPane;
+	private DatagramSocket socket;
 
 	private String name, address;
 	private int port;
+	private InetAddress ip;
+	private Thread send;
+
+	private JPanel contentPane;
 	private JTextField txtMessage;
 	private JTextArea history;
 	private DefaultCaret caret;
-
-	private DatagramSocket socket;
-	private InetAddress ip;
-
-	private Thread send;
 
 	public Client(String name, String address, int port) {
 		setTitle("Cherno Chat Client");
