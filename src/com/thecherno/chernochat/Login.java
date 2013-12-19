@@ -91,7 +91,7 @@ public class Login extends JFrame {
 
 	private void login(String name, String address, int port) {
 		dispose();
-		new Client(name, address, port);
+		new ClientWindow(name, address, port);
 	}
 
 	public static void main(String[] args) {
