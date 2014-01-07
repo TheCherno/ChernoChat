@@ -76,6 +76,16 @@ public class Client {
 		send.start();
 	}
 
+	public void close() {
+		new Thread() {
+			public void run() {
+				synchronized (socket) {
+					socket.close();
+				}
+			}
+		}.start();
+	}
+
 	public void setID(int ID) {
 		this.ID = ID;
 	}
