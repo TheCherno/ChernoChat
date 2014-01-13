@@ -95,6 +95,7 @@ public class Server implements Runnable {
 			public void run() {
 				while (running) {
 					sendToAll("/i/server");
+					sendStatus();
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
@@ -117,6 +118,16 @@ public class Server implements Runnable {
 			}
 		};
 		manage.start();
+	}
+	
+	private void sendStatus() {
+		if (clients.size() <= 0) return;
+		String users = "/u/";
+		for (int i = 0; i < clients.size() - 1; i++) {
+			users += clients.get(i).name + "/n/";
+		}
+		users += clients.get(clients.size() - 1).name + "/e/";
+		sendToAll(users);
 	}
 
 	private void receive() {
